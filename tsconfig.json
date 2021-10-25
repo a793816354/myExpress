@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    // Target latest version of ECMAScript.
+    "target": "es6",
+    // Search under node_modules for non-relative imports.
+    "module": "commonjs",
+    "moduleResolution": "node",
+    // Disallow features that require cross-file information for emit.
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "removeComments": true,
+    "types": [
+      "node"
+    ],
+    "emitDecoratorMetadata": true,
+    "lib": [
+      "es2019",
+      "dom",
+      "esnext.array"
+    ],
+    "suppressImplicitAnyIndexErrors": true,
+    "outDir": "common"
+  },
+  "include": [
+    "src/**/*.ts",
+    "test/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
