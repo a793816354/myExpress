@@ -1,6 +1,11 @@
 import http from "http";
 import fs from "fs";
 import { URL } from "url";
+
+const isMathed = (routeUrl, url) => {
+  return new RegExp(routeUrl).test(url);
+};
+
 const server = http.createServer((req, res) => {
   const { url } = req;
   let result = null;
