@@ -1,6 +1,6 @@
 import Request from "./Request";
 import Response from "./Response";
-import { nextFunc } from "../helper/next";
+import { nextFunc, initNextStatus } from "../helper/next";
 import { isMatched } from "../helper/utils";
 import { notFoundPage, errMethodPage } from "../helper/page";
 
@@ -30,7 +30,7 @@ export default class ExpressApp {
       if (!isMatched(routeUrl, url)) continue;
 
       if (routeMethod === "use") {
-        this.runCallBacks.call(callbacks);
+        this.runCallBacks(callbacks);
         continue;
       }
 
@@ -39,7 +39,7 @@ export default class ExpressApp {
         continue;
       }
 
-      this.runCallBacks.call(callbacks);
+      this.runCallBacks(callbacks);
     }
 
     return notFoundPage.call(this);
