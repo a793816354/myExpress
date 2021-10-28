@@ -23,10 +23,23 @@ export default class ExpressApp {
     });
   }
 
+  use(url, ...args) {
+    if (args.some((item) => typeof item !== "function"))
+      throw new Error("中间件为函数");
+
+    this.routes.push({
+      method: "use",
+      url,
+      callbacks: args,
+    });
+  }
+
+  //匹配调用
   invoke({ url, method }) {
     for (let index = 0; index < this.routes.length; index++) {
       const curRoute = this.routes[index];
       const { method: routeMethod, url: routeUrl, callbacks } = curRoute;
+
       if (!isMatched(routeUrl, url)) continue;
 
       if (routeMethod === "use") {
@@ -42,9 +55,11 @@ export default class ExpressApp {
       this.runCallBacks(callbacks);
     }
 
+    //最终如果没有end，但是走完了，会返回404，参照express
     return notFoundPage.call(this);
   }
 
+  // iterator方式运行回掉
   runCallBacks(callbacks) {
     const nextObj = { done: true, value: null };
     const iter = callbacks[Symbol.iterator]();

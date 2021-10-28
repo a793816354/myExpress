@@ -3,7 +3,9 @@ import ExpressApp from "./class/App";
 
 export default function myExpress() {
   const app = new ExpressApp();
+
   const server = http.createServer(function (req, res) {
+    // 享元模式，用一个app，不断调整新请求的req和res
     app.req = req;
     app.res = res;
 
@@ -11,7 +13,6 @@ export default function myExpress() {
     app.invoke({ url, method: method.toLowerCase() });
   });
   app.server = server;
-  // console.log(app);
 
   return app;
 }

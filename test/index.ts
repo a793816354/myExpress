@@ -1,9 +1,12 @@
-import myExpress from "../src/express";
-console.log(myExpress);
+import myExpress from "../src";
 const app = myExpress();
 const port = 3006;
 
-app.get("/", (req, res) => {
+app.use("/.*", (req, res) => {
+  console.log("you got it!");
+});
+
+app.get("/hello", (req, res) => {
   console.log(87777);
   res.send("Hello World!");
 });
@@ -18,11 +21,8 @@ app.get(
     res.send(`${res.time}`);
   }
 );
-// console.log(app.listen);
+
 console.log(app);
-// @ts-ignore: Unreachable code error
-console.log(app.listen);
-// @ts-ignore: Unreachable code error
 app.listen(port, "local.wemomo.com", () => {
   console.log("启动成功");
 });

@@ -19,7 +19,7 @@
       "esnext.array"
     ],
     "suppressImplicitAnyIndexErrors": true,
-    "outDir": "common"
+    "outDir": "dist"
   },
   "include": [
     "src/**/*.ts",
