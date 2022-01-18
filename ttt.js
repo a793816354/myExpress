@@ -35,7 +35,6 @@ const initCtx = () => {
 
 Reflect.defineProperty(ctx, 'body', {
     set(val) {
-        console.log(val);
         initCtx()
     }
 })

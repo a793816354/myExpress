@@ -1,5 +1,6 @@
 export default class Request {
-  constructor(private app) {
-    this.app = app;
+  request: any;
+  constructor(req) {
+    this.request = req;
   }
 }

@@ -1,8 +1,9 @@
 export default class Response {
-  constructor(private app) {
-    this.app = app;
+  response: any;
+  constructor(res) {
+    this.response = res;
   }
   send(result) {
-    this.app.res.end(result);
+    this.response.end(result);
   }
 }

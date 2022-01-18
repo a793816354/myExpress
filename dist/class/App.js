@@ -1,10 +1,5 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const Request_1 = __importDefault(require("./Request"));
-const Response_1 = __importDefault(require("./Response"));
 const next_1 = require("../helper/next");
 const utils_1 = require("../helper/utils");
 const page_1 = require("../helper/page");
@@ -14,8 +9,6 @@ class ExpressApp {
         this.req = null;
         this.res = null;
         this.server = null;
-        this.response = new Response_1.default(this);
-        this.request = new Request_1.default(this);
     }
     get(url, ...args) {
         if (args.some((item) => typeof item !== "function"))
@@ -60,7 +53,7 @@ class ExpressApp {
         while (!nextObj.done && typeof nextObj.value === "function") {
             const { value } = nextObj;
             next_1.initNextStatus(nextObj);
-            value(this.request, this.response, next_1.nextFunc.bind(null, nextObj, iter));
+            value(this.req, this.res, next_1.nextFunc.bind(null, nextObj, iter));
         }
     }
     listen(port, host, callback) {

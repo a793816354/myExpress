@@ -1,9 +1,9 @@
 export const notFoundPage = function () {
-  this.res.statusCode = 404;
-  return this.response.send("<div>page not found!!</div>");
+  this.res.response.statusCode = 404;
+  return this.res.send("<div>page not found!!</div>");
 };
 
 export const errMethodPage = function () {
-  this.res.statusCode = 405;
-  return this.response.send("<div>err method!!</div>");
+  this.res.response.statusCode = 405;
+  return this.res.send("<div>err method!!</div>");
 };

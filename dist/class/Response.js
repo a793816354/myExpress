@@ -1,12 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class Response {
-    constructor(app) {
-        this.app = app;
-        this.app = app;
+    constructor(res) {
+        this.response = res;
     }
     send(result) {
-        this.app.res.end(result);
+        this.response.end(result);
     }
 }
 exports.default = Response;

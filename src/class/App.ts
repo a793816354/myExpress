@@ -9,8 +9,6 @@ export default class ExpressApp {
   req = null;
   res = null;
   server = null;
-  response = new Response(this);
-  request = new Request(this);
 
   get(url, ...args) {
     if (args.some((item) => typeof item !== "function"))
@@ -69,7 +67,7 @@ export default class ExpressApp {
       const { value } = nextObj;
 
       initNextStatus(nextObj);
-      value(this.request, this.response, nextFunc.bind(null, nextObj, iter));
+      value(this.req, this.res, nextFunc.bind(null, nextObj, iter));
     }
   }
 

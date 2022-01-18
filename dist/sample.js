@@ -20,37 +20,31 @@ const runCallBacks = function (callbacks, url) {
     while (!temp.done && typeof temp.value === "function") {
         const { value } = temp;
         initNextStatus(temp);
-        value(this.request, this.response, nextFunc.bind(null, temp, iter));
+        value(this.req, this.res, nextFunc.bind(null, temp, iter));
     }
 };
 const notFoundPage = function () {
     this.res.statusCode = 404;
-    return this.response.send("<div>page not found!!</div>");
+    return this.res.send("<div>page not found!!</div>");
 };
 const errMethodPage = function () {
     this.res.statusCode = 405;
-    return this.response.send("<div>err method!!</div>");
+    return this.res.send("<div>err method!!</div>");
 };
 const isMatched = (routeUrl, url) => {
     return new RegExp(`^${routeUrl}$`).test(url);
 };
-const init = (app, req, res) => {
-    app.req = req;
-    app.res = res;
-};
-class Response {
-    constructor(app) {
-        this.app = app;
-        this.app = app;
-    }
-    send(result) {
-        this.app.res.end(result);
+class Request {
+    constructor(req) {
+        this.request = req;
     }
 }
-class Request {
-    constructor(app) {
-        this.app = app;
-        this.app = app;
+class Response {
+    constructor(res) {
+        this.response = res;
+    }
+    send(result) {
+        this.response.end(result);
     }
 }
 class ExpressApp {
@@ -59,8 +53,6 @@ class ExpressApp {
         this.req = null;
         this.res = null;
         this.server = null;
-        this.response = new Response(this);
-        this.request = new Request(this);
     }
     get(url, ...args) {
         if (args.some((item) => typeof item !== "function"))
@@ -96,8 +88,9 @@ class ExpressApp {
 function myExpress() {
     const app = new ExpressApp();
     const server = http_1.default.createServer(function (req, res) {
-        init(app, req, res);
         const { url, method } = req;
+        app.req = new Request(req);
+        app.res = new Response(res);
         app.invoke({ url, method: method.toLowerCase() });
     });
     app.server = server;
