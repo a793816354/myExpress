@@ -8,7 +8,6 @@ app.use("/.*", (req, res) => {
 });
 
 app.get("/hello", (req, res) => {
-  console.log(req);
   res.response.setHeader("Set-Cookie", [
     "type=ninja;httponly;path=/hello",
     "language=javascript;max-age=3333",
@@ -28,15 +27,26 @@ app.get(
   }
 );
 
+app.get("/common.css", (req, res, next) => {
+  const css = fs.readFileSync("./common.css");
+  res.send(css);
+});
+
+app.get("/importCss.css", (req, res, next) => {
+  const css = fs.readFileSync("./importCss.css");
+  res.send(css);
+});
+
+app.get("/importCss2.css", (req, res, next) => {
+  const css = fs.readFileSync("./importCss2.css");
+  res.send(css);
+});
+
 app.get("/", (req, res, next) => {
   const html = fs.readFileSync("./index.html");
-  console.log(res);
-
-  res.response.setHeader("cache-control", "max-age:3000000");
   res.send(html);
 });
 
-console.log(app);
 app.listen(port, "local.wemomo.com", () => {
   console.log("启动成功");
 });

@@ -54,7 +54,7 @@ export default class ExpressApp {
     }
 
     //最终如果没有end，但是走完了，会返回404，参照express
-    return notFoundPage.call(this);
+    // return notFoundPage.call(this);
   }
 
   // iterator方式运行回掉
